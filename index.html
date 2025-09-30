@@ -217,6 +217,7 @@
       align-items: center;
       gap: 12px;
       flex-wrap: wrap;
+      cursor: pointer;
     }
 
     .song-info h4 {
@@ -356,7 +357,7 @@
     
     <!-- Welcome Screen -->
     <div class="welcome-screen" id="welcomeScreen">
-        <h1 class="welcome-message">Welcome my crush, enjoy your stay</h1>
+        <h1 class="welcome-message">Welcome my crush, enjoy my confession for you</h1>
     </div>
     
     <!-- Main Content -->
@@ -386,47 +387,52 @@
                         <span>👇 Click to open</span>
                     </div>
                     <div class="letter-content">
-                        <p>My love,</p>
-                        <p>Every day with you feels like a beautiful dream that I never want to wake up from. Your smile brightens my darkest days, and your laughter is my favorite melody.</p>
-                        <p>I cherish every moment we spend together, from our silly inside jokes to our deep conversations under the stars. You've shown me what true happiness feels like, and I'm forever grateful to have you in my life.</p>
-                        <p>No matter where life takes us, always remember that my heart belongs to you.</p>
-                        <p>Forever yours,</p>
-                        <p>Me</p>
+                        <p>My crush,<br><br>
+                        There’s something about you that I can’t put into words, you make everything feel brighter just by being
+                        yourself. Your smile, your laugh, even the little ways you carry yourself stay in my mind long after I see you.
+                        You don’t just make days better, you make them unforgettable, and I find myself looking forward to every
+                        moment we share, no matter how small.<br><br>
+                        I just want you to know that you’re incredibly special to me. You inspire me to be better, to see life in a softer
+                        way, and to appreciate the simple happiness that comes with being around you. No matter what, you’ll
+                        always have a special place in my heart, and I hope one day you’ll see yourself through my eyes, because to
+                        me, you’re truly amazing.<br><br>
+                        Forever yours,<br>
+                        Rosh</p>
                     </div>
                 </div>
             </div>
             
             <!-- Music Tab -->
             <div class="tab-content" id="music">
-                <h2>Songs that remind me of you</h2>
-                <div class="song">
-                    <div class="song-icon">🎵</div>
-                    <div class="song-info">
-                        <h4>Those Eyes</h4>
-                        <p>by New West</p>
-                    </div>
+              <h2>Songs that remind me of you</h2>
+              <div class="song" data-audio="thoseeyes.mp3">
+                <div class="song-icon">🎵</div>
+                <div class="song-info">
+                  <h4>Those Eyes</h4>
+                  <p>by New West</p>
                 </div>
-                <div class="song">
-                    <div class="song-icon">🎵</div>
-                    <div class="song-info">
-                        <h4>Ocean Eyes</h4>
-                        <p>by Billie Ellish</p>
-                    </div>
+              </div>
+              <div class="song" data-audio="oceaneyes.mp3">
+                <div class="song-icon">🎵</div>
+                <div class="song-info">
+                  <h4>Ocean Eyes</h4>
+                  <p>by Billie Eilish</p>
                 </div>
-                <div class="song">
-                    <div class="song-icon">🎵</div>
-                    <div class="song-info">
-                        <h4>I Wanna Be Yours</h4>
-                        <p>by Arctic Monkeys</p>
-                    </div>
+              </div>
+              <div class="song" data-audio="iwannabeyours.mp3">
+                <div class="song-icon">🎵</div>
+                <div class="song-info">
+                  <h4>I Wanna Be Yours</h4>
+                  <p>by Arctic Monkeys</p>
                 </div>
-                <div class="song">
-                    <div class="song-icon">🎵</div>
-                    <div class="song-info">
-                        <h4>I'll Be</h4>
-                        <p>by Edwin McCain</p>
-                    </div>
+              </div>
+              <div class="song" data-audio="illbe.mp3">
+                <div class="song-icon">🎵</div>
+                <div class="song-info">
+                  <h4>I'll Be</h4>
+                  <p>by Edwin McCain</p>
                 </div>
+              </div>
             </div>
             
             <!-- Notes Tab -->
@@ -503,7 +509,7 @@
                     }, 500);
                 } else {
                     passwordInput.value = '';
-                    passwordInput.placeholder = 'Try again, my love...';
+                    passwordInput.placeholder = 'Try again, my crush...';
                     passwordInput.style.borderColor = '#ff4d4d';
                     setTimeout(() => {
                         passwordInput.style.borderColor = '#ffb7c5';
@@ -572,6 +578,44 @@
             
             addFloatingElements();
         });
+
+        // Music play/pause per song (clickable with icon update)
+const songElements = document.querySelectorAll('.song');
+let currentAudio = null;
+let currentIcon = null;
+
+songElements.forEach(song => {
+    song.addEventListener('click', function() {
+        const audioSrc = this.getAttribute('data-audio');
+        const icon = this.querySelector('.song-icon');
+
+        // Kung may tumutugtog na ibang kanta, i-pause muna at ibalik icon
+        if (currentAudio && currentAudio.src.includes(audioSrc) === false) {
+            currentAudio.pause();
+            if (currentIcon) currentIcon.textContent = "▶️";
+        }
+
+        // Kung wala pang naka-load o ibang kanta ang pipindutin
+        if (!currentAudio || currentAudio.src.includes(audioSrc) === false) {
+            currentAudio = new Audio(audioSrc);
+            currentAudio.play();
+            icon.textContent = "⏸️";
+            currentIcon = icon;
+        } 
+        // Kung same song ang pinindot (toggle pause/play)
+        else {
+            if (currentAudio.paused) {
+                currentAudio.play();
+                icon.textContent = "⏸️";
+            } else {
+                currentAudio.pause();
+                icon.textContent = "▶️";
+            }
+        }
+    });
+});
+
+
     </script>
 </body>
 </html>
