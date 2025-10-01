@@ -1,257 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Love</title>
-    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="./assets/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For My Love</title>
+  <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;500;600&display=swap"
+    rel="stylesheet">
 
 </head>
+
 <body>
-    <!-- Password Modal -->
-    <div class="password-modal" id="passwordModal">
-        <div class="password-content">
-            <h2>Enter the secret code</h2>
-            <input type="password" class="password-input" id="passwordInput" placeholder="Your birthday po like (july3)...">
-            <button class="submit-btn" id="submitPassword">Enter</button>
-        </div>
+  <!-- Password Modal -->
+  <div class="password-modal" id="passwordModal">
+    <div class="password-content">
+      <h2>Enter the secret code</h2>
+      <input type="password" class="password-input" id="passwordInput" placeholder="Your birthday po like (july3)...">
+      <button class="submit-btn" id="submitPassword">Enter</button>
     </div>
-    
-    <!-- Welcome Screen -->
-    <div class="welcome-screen" id="welcomeScreen">
-        <h1 class="welcome-message">Welcome my crush, enjoy my confession for you</h1>
+  </div>
+
+  <!-- Welcome Screen -->
+  <div class="welcome-screen" id="welcomeScreen">
+    <h1 class="welcome-message">Welcome my crush, enjoy my confession for you</h1>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container" id="mainContent" style="display: none;">
+    <div class="tabs">
+      <button class="tab active" data-tab="love-letter">
+        <span>❤️</span> Love Letter
+      </button>
+      <button class="tab" data-tab="music">
+        <span>🎵</span> Music
+      </button>
+      <button class="tab" data-tab="notes">
+        <span>📝</span> Notes
+      </button>
+      <button class="tab" data-tab="gallery">
+        <span>🌷</span> Gallery
+      </button>
     </div>
-    
-    <!-- Main Content -->
-    <div class="container" id="mainContent" style="display: none;">
-        <div class="tabs">
-            <button class="tab active" data-tab="love-letter">
-                <span>❤️</span> Love Letter
-            </button>
-            <button class="tab" data-tab="music">
-                <span>🎵</span> Music
-            </button>
-            <button class="tab" data-tab="notes">
-                <span>📝</span> Notes
-            </button>
-            <button class="tab" data-tab="gallery">
-                <span>🌷</span> Gallery
-            </button>
-        </div>
-        
-        <div class="content-area">
-            <!-- Love Letter Tab -->
-            <div class="tab-content active" id="love-letter">
-                <h2>Angelica'</h2>
-                <div class="letter" id="loveLetter">
-                    <div class="letter-header">
-                        <h3>A Letter For You</h3>
-                        <span>👇 Click to open</span>
-                    </div>
-                    <div class="letter-content">
-                        <p>My crush,<br><br>
-                        Hello angelica, sorry for using your photo and birthday wihtout permission ha. I just want to make something special for you. I hope you like it. <br><br>
-						I know we haven't known each other for a long time, but I feel like I've known you forever. Your smile lights up my day, and your laughter is music to my ears. Every moment we spend together is a treasure I hold close to my heart.<br><br>
-						I admire your kindness, your strength, and your beautiful soul. You inspire me to be a better person every day. I am grateful for your presence in my life, and I cherish every memory we create together.<br><br>
-						I want you to know that I am here for you, through thick and thin. I will support you, encourage you, and stand by your side no matter what. You are not alone, and I will always be your biggest cheerleader.<br><br>
-						I look forward to the future with you, to all the adventures we will embark on and the dreams we will chase together. You are my crush, my confidant, and my best friend. I am so lucky if I have you in my life.<br><br>
-                        Forever yours,<br>
-                        Rosh</p>
-                    </div>
-                </div>
-            </div>
 
-			
-            
-            <!-- Music Tab -->
-            <div class="tab-content" id="music">
-              <h2>Songs that remind me of you</h2>
-              <div class="song" data-audio="djpo.mp3">
-                <div class="song-icon">🎵</div>
-                <div class="song-info">
-                  <h4>Hanggang Kailan</h4>
-                  <p>by Daniel Padilla</p>
-                </div>
-              </div>
-              <div class="song" data-audio="thoseeyes.mp3">
-                <div class="song-icon">🎵</div>
-                <div class="song-info">
-                  <h4>Those Eyes</h4>
-                  <p>by New West</p>
-                </div>
-              </div>
-              <div class="song" data-audio="oceaneyes.mp3">
-                <div class="song-icon">🎵</div>
-                <div class="song-info">
-                  <h4>Ocean Eyes</h4>
-                  <p>by Billie Eilish</p>
-                </div>
-              </div>
-              <div class="song" data-audio="iwannabeyours.mp3">
-                <div class="song-icon">🎵</div>
-                <div class="song-info">
-                  <h4>I Wanna Be Yours</h4>
-                  <p>by Arctic Monkeys</p>
-                </div>
-              </div>
-              <div class="song" data-audio="illbe.mp3">
-                <div class="song-icon">🎵</div>
-                <div class="song-info">
-                  <h4>I'll Be</h4>
-                  <p>by Edwin McCain</p>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Notes Tab -->
-            <div class="tab-content" id="notes">
-                <h2>Some reminders</h2>
-                <div class="note">
-                    <p>Take care always</p>
-                </div>
-                <div class="note">
-                    <p>Eat on time</p>
-                </div>
-                <div class="note">
-                    <p>You're mine.. always lang ha</p>
-                </div>
-            </div>
-            
-            <!-- Optional: comment box -->
-<div class="comment-box">
-    <input type="text" id="commentInput" placeholder="Leave a comment...">
-    <button id="commentBtn">Send</button>
-</div>
-<div class="comment-list" id="commentList"></div>
-
-            <!-- Gallery Tab -->
-            <div class="tab-content" id="gallery">
-                <h2>Flowers for you</h2>
-                <div class="gallery">
-                    <div class="gallery-item">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1eaad721-3375-4d97-a5fa-cbf8a87d60b8.png" alt="Bouquet of delicate pink roses with soft green leaves">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/73632299-5dde-4ded-805a-88a7dcb4b5e4.png" alt="Beautiful pink tulips in a glass vase with morning dew">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e9890063-b481-46f6-97a1-9fc753211e19.png" alt="Fluffy pink peony flowers with lush foliage">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4bc3dffd-4971-4223-b7e4-3699d2b97bbe.png" alt="Branch of pink cherry blossoms against a blue sky">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d0daff3c-1751-492b-9b74-de28ac48d384.png" alt="Cluster of light pink carnations with delicate petals">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/51f3ca74-2471-403f-bb99-751536acd7d9.png" alt="Vibrant pink azalea flowers covering a garden bush">
-                    </div>
-                </div>
-            </div>
+    <div class="content-area">
+      <!-- Love Letter Tab -->
+      <div class="tab-content active" id="love-letter">
+        <h2>Angelica'</h2>
+        <div class="letter" id="loveLetter">
+          <div class="letter-header">
+            <h3>A Letter For You</h3>
+            <span>👇 Click to open</span>
+          </div>
+          <div class="letter-content">
+            <p>My crush,<br><br>
+              Hello angelica, sorry for using your photo and birthday wihtout permission ha. I just want to make
+              something special for you. I hope you like it. <br><br>
+              I know we haven't known each other for a long time, but I feel like I've known you forever. Your smile
+              lights up my day, and your laughter is music to my ears. Every moment we spend together is a treasure I
+              hold close to my heart.<br><br>
+              I admire your kindness, your strength, and your beautiful soul. You inspire me to be a better person every
+              day. I am grateful for your presence in my life, and I cherish every memory we create together.<br><br>
+              I want you to know that I am here for you, through thick and thin. I will support you, encourage you, and
+              stand by your side no matter what. You are not alone, and I will always be your biggest
+              cheerleader.<br><br>
+              I look forward to the future with you, to all the adventures we will embark on and the dreams we will
+              chase together. You are my crush, my confidant, and my best friend. I am so lucky if I have you in my
+              life.<br><br>
+              Forever yours,<br>
+              Rosh</p>
+          </div>
         </div>
+      </div>
+
+
+
+      <!-- Music Tab -->
+      <div class="tab-content" id="music">
+        <h2>Songs that remind me of you</h2>
+        <div class="song" data-audio="djpo.mp3">
+          <div class="song-icon">🎵</div>
+          <div class="song-info">
+            <h4>Hanggang Kailan</h4>
+            <p>by Daniel Padilla</p>
+          </div>
+        </div>
+        <div class="song" data-audio="thoseeyes.mp3">
+          <div class="song-icon">🎵</div>
+          <div class="song-info">
+            <h4>Those Eyes</h4>
+            <p>by New West</p>
+          </div>
+        </div>
+        <div class="song" data-audio="oceaneyes.mp3">
+          <div class="song-icon">🎵</div>
+          <div class="song-info">
+            <h4>Ocean Eyes</h4>
+            <p>by Billie Eilish</p>
+          </div>
+        </div>
+        <div class="song" data-audio="iwannabeyours.mp3">
+          <div class="song-icon">🎵</div>
+          <div class="song-info">
+            <h4>I Wanna Be Yours</h4>
+            <p>by Arctic Monkeys</p>
+          </div>
+        </div>
+        <div class="song" data-audio="illbe.mp3">
+          <div class="song-icon">🎵</div>
+          <div class="song-info">
+            <h4>I'll Be</h4>
+            <p>by Edwin McCain</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes Tab -->
+      <div class="tab-content" id="notes">
+        <h2>Some reminders</h2>
+        <div class="note">
+          <p>Take care always</p>
+        </div>
+        <div class="note">
+          <p>Eat on time</p>
+        </div>
+        <div class="note">
+          <p>You're mine.. always lang ha</p>
+        </div>
+      </div>
+
+      <!-- Optional: comment box -->
+      <div class="comment-box">
+        <input type="text" id="commentInput" placeholder="Leave a comment...">
+        <button id="commentBtn">Send</button>
+      </div>
+      <div class="comment-list" id="commentList"></div>
+
+      <!-- Gallery Tab -->
+      <div class="tab-content" id="gallery">
+        <h2>Flowers for you</h2>
+        <div class="gallery">
+          <div class="gallery-item">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1eaad721-3375-4d97-a5fa-cbf8a87d60b8.png"
+              alt="Bouquet of delicate pink roses with soft green leaves">
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/73632299-5dde-4ded-805a-88a7dcb4b5e4.png"
+              alt="Beautiful pink tulips in a glass vase with morning dew">
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e9890063-b481-46f6-97a1-9fc753211e19.png"
+              alt="Fluffy pink peony flowers with lush foliage">
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4bc3dffd-4971-4223-b7e4-3699d2b97bbe.png"
+              alt="Branch of pink cherry blossoms against a blue sky">
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d0daff3c-1751-492b-9b74-de28ac48d384.png"
+              alt="Cluster of light pink carnations with delicate petals">
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/51f3ca74-2471-403f-bb99-751536acd7d9.png"
+              alt="Vibrant pink azalea flowers covering a garden bush">
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <!-- Decorative elements -->
-    <div class="heart" style="top: 10%; left: 5%;">❤️</div>
-    <div class="heart" style="top: 20%; right: 10%;">❤️</div>
-    <div class="heart" style="bottom: 15%; left: 15%;">❤️</div>
-    <div class="teddy-bear" style="top: 30%; left: 10%;">🧸</div>
-    <div class="teddy-bear" style="bottom: 10%; right: 5%;">🧸</div>
-    
-    <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
-<script type="module">
-  // Firebase imports
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
-  import { 
-    getFirestore, collection, addDoc, onSnapshot, 
-    query, orderBy, serverTimestamp, deleteDoc, doc 
-  } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+  </div>
 
-  // Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyDgfwPyiJWemClcF411-skY-BBq3fB0xMU",
-    authDomain: "formylove-113e8.firebaseapp.com",
-    projectId: "formylove-113e8",
-    storageBucket: "formylove-113e8.appspot.com",
-    messagingSenderId: "1092529179077",
-    appId: "1:1092529179077:web:46242d99edab7b0d06a3ac",
-    measurementId: "G-T4WDHM52Z7"
-  };
+  <!-- Decorative elements -->
+  <div class="heart" style="top: 10%; left: 5%;">❤️</div>
+  <div class="heart" style="top: 20%; right: 10%;">❤️</div>
+  <div class="heart" style="bottom: 15%; left: 15%;">❤️</div>
+  <div class="teddy-bear" style="top: 30%; left: 10%;">🧸</div>
+  <div class="teddy-bear" style="bottom: 10%; right: 5%;">🧸</div>
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const db = getFirestore(app);
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+  <script type="module">
+    // Firebase imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
+    import {
+      getFirestore, collection, addDoc, onSnapshot,
+      query, orderBy, serverTimestamp, deleteDoc, doc
+    } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
-  // DOM Elements
-  const commentBtn = document.getElementById('commentBtn');
-  const commentInput = document.getElementById('commentInput');
-  const commentList = document.getElementById('commentList');
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDgfwPyiJWemClcF411-skY-BBq3fB0xMU",
+      authDomain: "formylove-113e8.firebaseapp.com",
+      projectId: "formylove-113e8",
+      storageBucket: "formylove-113e8.appspot.com",
+      messagingSenderId: "1092529179077",
+      appId: "1:1092529179077:web:46242d99edab7b0d06a3ac",
+      measurementId: "G-T4WDHM52Z7"
+    };
 
-  // Save comment
-  commentBtn.addEventListener('click', async () => {
-    if (commentInput.value.trim() !== "") {
-      await addDoc(collection(db, "comments"), {
-        text: commentInput.value.trim(),
-        desc: new Date().toLocaleString(),
-        timestamp: serverTimestamp()
-      });
-      commentInput.value = "";
-    }
-  });
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
 
-  // Listen for real-time comments
-  const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
-  onSnapshot(q, (snapshot) => {
-    commentList.innerHTML = "";
-    snapshot.forEach(docSnap => {
-      const data = docSnap.data();
+    // DOM Elements
+    const commentBtn = document.getElementById('commentBtn');
+    const commentInput = document.getElementById('commentInput');
+    const commentList = document.getElementById('commentList');
 
-      const div = document.createElement('div');
-      div.style.display = "flex";
-      div.style.flexDirection = "column";
-      div.style.marginBottom = "8px";
-
-      const p = document.createElement('p');
-      p.textContent = data.text;
-      p.style.background = "#fce4ec";
-      p.style.padding = "6px 10px";
-      p.style.borderRadius = "8px";
-      p.style.margin = "0 0 3px 0";
-
-      const desc = document.createElement('small');
-      desc.textContent = data.desc || "No timestamp";
-      desc.style.color = "#888";
-      desc.style.fontSize = "0.8rem";
-      desc.style.marginLeft = "5px";
-
-      // Delete button
-      const delBtn = document.createElement('button');
-      delBtn.textContent = "❌";
-      delBtn.style.alignSelf = "flex-end";
-      delBtn.style.border = "none";
-      delBtn.style.background = "transparent";
-      delBtn.style.cursor = "pointer";
-      delBtn.style.fontSize = "14px";
-      delBtn.style.marginTop = "2px";
-
-      delBtn.addEventListener('click', async () => {
-        await deleteDoc(doc(db, "comments", docSnap.id));
-      });
-
-      div.appendChild(p);
-      div.appendChild(desc);
-      div.appendChild(delBtn);
-      commentList.appendChild(div);
+    // Save comment
+    commentBtn.addEventListener('click', async () => {
+      if (commentInput.value.trim() !== "") {
+        await addDoc(collection(db, "comments"), {
+          text: commentInput.value.trim(),
+          desc: new Date().toLocaleString(),
+          timestamp: serverTimestamp()
+        });
+        commentInput.value = "";
+      }
     });
-  });
-</script>
-<script src="./assets/js/script.js"></script>
+
+    // Listen for real-time comments
+    const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
+    onSnapshot(q, (snapshot) => {
+      commentList.innerHTML = "";
+      snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+
+        const div = document.createElement('div');
+        div.style.display = "flex";
+        div.style.flexDirection = "column";
+        div.style.marginBottom = "8px";
+
+        const p = document.createElement('p');
+        p.textContent = data.text;
+        p.style.background = "#fce4ec";
+        p.style.padding = "6px 10px";
+        p.style.borderRadius = "8px";
+        p.style.margin = "0 0 3px 0";
+
+        const desc = document.createElement('small');
+        desc.textContent = data.desc || "No timestamp";
+        desc.style.color = "#888";
+        desc.style.fontSize = "0.8rem";
+        desc.style.marginLeft = "5px";
+
+        // Delete button
+        const delBtn = document.createElement('button');
+        delBtn.textContent = "❌";
+        delBtn.style.alignSelf = "flex-end";
+        delBtn.style.border = "none";
+        delBtn.style.background = "transparent";
+        delBtn.style.cursor = "pointer";
+        delBtn.style.fontSize = "14px";
+        delBtn.style.marginTop = "2px";
+
+        delBtn.addEventListener('click', async () => {
+          await deleteDoc(doc(db, "comments", docSnap.id));
+        });
+
+        div.appendChild(p);
+        div.appendChild(desc);
+        div.appendChild(delBtn);
+        commentList.appendChild(div);
+      });
+    });
+  </script>
+  <script src="./assets/js/script.js"></script>
 
 </body>
+
 </html>
