@@ -387,7 +387,7 @@
     <div class="password-modal" id="passwordModal">
         <div class="password-content">
             <h2>Enter the secret code</h2>
-            <input type="password" class="password-input" id="passwordInput" placeholder="Our special word...">
+            <input type="password" class="password-input" id="passwordInput" placeholder="Your birthday po like (july3)...">
             <button class="submit-btn" id="submitPassword">Enter</button>
         </div>
     </div>
@@ -534,7 +534,7 @@
             const submitPassword = document.getElementById('submitPassword');
             
             submitPassword.addEventListener('click', function() {
-                if (passwordInput.value.toLowerCase() === 'babycakes') {
+                if (passwordInput.value.toLowerCase() === 'december28') {
                     passwordModal.style.opacity = '0';
                     setTimeout(() => {
                         passwordModal.style.display = 'none';
@@ -554,7 +554,7 @@
                     passwordInput.style.borderColor = '#ff4d4d';
                     setTimeout(() => {
                         passwordInput.style.borderColor = '#ffb7c5';
-                        passwordInput.placeholder = 'Our special word...';
+                        passwordInput.placeholder = 'Your birthday po...';
                     }, 1500);
                 }
             });
