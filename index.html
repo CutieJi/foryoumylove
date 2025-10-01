@@ -208,6 +208,42 @@
             max-height: 500px;
         }
 
+	  .comment-box {
+  margin-top: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.comment-box input {
+  flex: 1;
+  padding: 8px;
+  border: 2px solid #ffb7c5;
+  border-radius: 10px;
+  outline: none;
+}
+
+.comment-box button {
+  padding: 8px 12px;
+  border: none;
+  background: #d81b60;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.comment-list {
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+.comment-list p {
+  background: #fce4ec;
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
     /* Music Tab */
     .song {
       background: #f8e8ee;
@@ -399,6 +435,13 @@
                     </div>
                 </div>
             </div>
+
+			<!-- Optional: comment box -->
+<div class="comment-box">
+    <input type="text" id="commentInput" placeholder="Leave a comment...">
+    <button id="commentBtn">Send</button>
+</div>
+<div class="comment-list" id="commentList"></div>
             
             <!-- Music Tab -->
             <div class="tab-content" id="music">
@@ -613,6 +656,77 @@ songElements.forEach(song => {
     });
 });
 
+// --- Comments with Local Storage ---
+const commentBtn = document.getElementById('commentBtn');
+const commentInput = document.getElementById('commentInput');
+const commentList = document.getElementById('commentList');
+
+function loadComments() {
+  const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
+  commentList.innerHTML = "";
+
+  savedComments.forEach((item, index) => {
+    const div = document.createElement('div');
+    div.style.display = "flex";
+    div.style.flexDirection = "column";
+    div.style.marginBottom = "8px";
+
+    // Main text
+    const p = document.createElement('p');
+    p.textContent = item.text;
+    p.style.background = "#fce4ec";
+    p.style.padding = "6px 10px";
+    p.style.borderRadius = "8px";
+    p.style.margin = "0 0 3px 0";
+
+    // Description (below)
+    const desc = document.createElement('small');
+    desc.textContent = item.desc;
+    desc.style.color = "#888";
+    desc.style.fontSize = "0.8rem";
+    desc.style.marginLeft = "5px";
+
+    // Delete button
+    const delBtn = document.createElement('button');
+    delBtn.textContent = "❌";
+    delBtn.style.alignSelf = "flex-end";
+    delBtn.style.border = "none";
+    delBtn.style.background = "transparent";
+    delBtn.style.cursor = "pointer";
+    delBtn.style.fontSize = "14px";
+    delBtn.style.marginTop = "2px";
+
+    delBtn.addEventListener('click', () => {
+      let comments = JSON.parse(localStorage.getItem('comments')) || [];
+      comments.splice(index, 1);
+      localStorage.setItem('comments', JSON.stringify(comments));
+      loadComments();
+    });
+
+    div.appendChild(p);
+    div.appendChild(desc);
+    div.appendChild(delBtn);
+    commentList.appendChild(div);
+  });
+}
+
+commentBtn.addEventListener('click', () => {
+  if (commentInput.value.trim() !== "") {
+    const text = commentInput.value.trim();
+
+    // Example description: timestamp
+    const desc = "Added on " + new Date().toLocaleString();
+
+    let comments = JSON.parse(localStorage.getItem('comments')) || [];
+    comments.push({ text, desc });
+    localStorage.setItem('comments', JSON.stringify(comments));
+
+    loadComments();
+    commentInput.value = "";
+  }
+});
+
+loadComments();
 
     </script>
 </body>
