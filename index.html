@@ -524,6 +524,9 @@
     <div class="teddy-bear" style="top: 30%; left: 10%;">🧸</div>
     <div class="teddy-bear" style="bottom: 10%; right: 5%;">🧸</div>
     
+    <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Password check
@@ -656,78 +659,98 @@ songElements.forEach(song => {
     });
 });
 
-// --- Comments with Local Storage ---
-const commentBtn = document.getElementById('commentBtn');
-const commentInput = document.getElementById('commentInput');
-const commentList = document.getElementById('commentList');
 
-function loadComments() {
-  const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
-  commentList.innerHTML = "";
-
-  savedComments.forEach((item, index) => {
-    const div = document.createElement('div');
-    div.style.display = "flex";
-    div.style.flexDirection = "column";
-    div.style.marginBottom = "8px";
-
-    // Main text
-    const p = document.createElement('p');
-    p.textContent = item.text;
-    p.style.background = "#fce4ec";
-    p.style.padding = "6px 10px";
-    p.style.borderRadius = "8px";
-    p.style.margin = "0 0 3px 0";
-
-    // Description (below)
-    const desc = document.createElement('small');
-    desc.textContent = item.desc;
-    desc.style.color = "#888";
-    desc.style.fontSize = "0.8rem";
-    desc.style.marginLeft = "5px";
-
-    // Delete button
-    const delBtn = document.createElement('button');
-    delBtn.textContent = "❌";
-    delBtn.style.alignSelf = "flex-end";
-    delBtn.style.border = "none";
-    delBtn.style.background = "transparent";
-    delBtn.style.cursor = "pointer";
-    delBtn.style.fontSize = "14px";
-    delBtn.style.marginTop = "2px";
-
-    delBtn.addEventListener('click', () => {
-      let comments = JSON.parse(localStorage.getItem('comments')) || [];
-      comments.splice(index, 1);
-      localStorage.setItem('comments', JSON.stringify(comments));
-      loadComments();
-    });
-
-    div.appendChild(p);
-    div.appendChild(desc);
-    div.appendChild(delBtn);
-    commentList.appendChild(div);
-  });
-}
-
-commentBtn.addEventListener('click', () => {
-  if (commentInput.value.trim() !== "") {
-    const text = commentInput.value.trim();
-
-    // Example description: timestamp
-    const desc = "Added on " + new Date().toLocaleString();
-
-    let comments = JSON.parse(localStorage.getItem('comments')) || [];
-    comments.push({ text, desc });
-    localStorage.setItem('comments', JSON.stringify(comments));
-
-    loadComments();
-    commentInput.value = "";
-  }
-});
-
-loadComments();
 
     </script>
+    <script type="module">
+  // Firebase imports
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
+  import { 
+    getFirestore, collection, addDoc, onSnapshot, 
+    query, orderBy, serverTimestamp, deleteDoc, doc 
+  } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDgfwPyiJWemClcF411-skY-BBq3fB0xMU",
+    authDomain: "formylove-113e8.firebaseapp.com",
+    projectId: "formylove-113e8",
+    storageBucket: "formylove-113e8.appspot.com",
+    messagingSenderId: "1092529179077",
+    appId: "1:1092529179077:web:46242d99edab7b0d06a3ac",
+    measurementId: "G-T4WDHM52Z7"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+
+  // DOM Elements
+  const commentBtn = document.getElementById('commentBtn');
+  const commentInput = document.getElementById('commentInput');
+  const commentList = document.getElementById('commentList');
+
+  // Save comment
+  commentBtn.addEventListener('click', async () => {
+    if (commentInput.value.trim() !== "") {
+      await addDoc(collection(db, "comments"), {
+        text: commentInput.value.trim(),
+        desc: new Date().toLocaleString(),
+        timestamp: serverTimestamp()
+      });
+      commentInput.value = "";
+    }
+  });
+
+  // Listen for real-time comments
+  const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
+  onSnapshot(q, (snapshot) => {
+    commentList.innerHTML = "";
+    snapshot.forEach(docSnap => {
+      const data = docSnap.data();
+
+      const div = document.createElement('div');
+      div.style.display = "flex";
+      div.style.flexDirection = "column";
+      div.style.marginBottom = "8px";
+
+      const p = document.createElement('p');
+      p.textContent = data.text;
+      p.style.background = "#fce4ec";
+      p.style.padding = "6px 10px";
+      p.style.borderRadius = "8px";
+      p.style.margin = "0 0 3px 0";
+
+      const desc = document.createElement('small');
+      desc.textContent = data.desc || "No timestamp";
+      desc.style.color = "#888";
+      desc.style.fontSize = "0.8rem";
+      desc.style.marginLeft = "5px";
+
+      // Delete button
+      const delBtn = document.createElement('button');
+      delBtn.textContent = "❌";
+      delBtn.style.alignSelf = "flex-end";
+      delBtn.style.border = "none";
+      delBtn.style.background = "transparent";
+      delBtn.style.cursor = "pointer";
+      delBtn.style.fontSize = "14px";
+      delBtn.style.marginTop = "2px";
+
+      delBtn.addEventListener('click', async () => {
+        await deleteDoc(doc(db, "comments", docSnap.id));
+      });
+
+      div.appendChild(p);
+      div.appendChild(desc);
+      div.appendChild(delBtn);
+      commentList.appendChild(div);
+    });
+  });
+</script>
+
+
 </body>
 </html>
