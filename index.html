@@ -630,7 +630,7 @@
             addFloatingElements();
         });
 
-        // Music play/pause per song (clickable with icon update)
+        // Music play/pause per song (clickable with icon update + replay when ended)
 const songElements = document.querySelectorAll('.song');
 let currentAudio = null;
 let currentIcon = null;
@@ -643,6 +643,7 @@ songElements.forEach(song => {
         // Kung may tumutugtog na ibang kanta, i-pause muna at ibalik icon
         if (currentAudio && currentAudio.src.includes(audioSrc) === false) {
             currentAudio.pause();
+            currentAudio.currentTime = 0; // reset old audio
             if (currentIcon) currentIcon.textContent = "▶️";
         }
 
@@ -652,6 +653,12 @@ songElements.forEach(song => {
             currentAudio.play();
             icon.textContent = "⏸️";
             currentIcon = icon;
+
+            // replay kapag natapos yung kanta
+            currentAudio.onended = () => {
+                currentAudio.currentTime = 0;
+                currentAudio.play(); // auto replay
+            };
         } 
         // Kung same song ang pinindot (toggle pause/play)
         else {
@@ -665,8 +672,6 @@ songElements.forEach(song => {
         }
     });
 });
-
-
 
     </script>
     <script type="module">
@@ -757,7 +762,6 @@ songElements.forEach(song => {
     });
   });
 </script>
-
 
 </body>
 </html>
