@@ -337,7 +337,8 @@
       perspective: 1000px;
       margin: 80px auto;
       cursor: pointer;
-      margin-top: 5px; /* 🔼 itinaas ang envelope */
+      margin-top: 5px;
+      /* 🔼 itinaas ang envelope */
     }
 
     .envelope {
@@ -867,48 +868,43 @@
   </script>
   <script src="./assets/js/script.js"></script>
   <script>
-  const mailContainer = document.getElementById("mailContainer");
-  const envelope = document.getElementById("envelope");
-  const sparkleContainer = document.getElementById("sparkleContainer");
+    const mailContainer = document.getElementById("mailContainer");
+    const envelope = document.getElementById("envelope");
+    const sparkleContainer = document.getElementById("sparkleContainer");
 
-  // 🎶 Sound effect setup
-  const openSound = new Audio("open.mp3"); // <-- Replace with your sound file name
-  openSound.volume = 0.7; // Adjust volume (0.0 - 1.0)
+    // 🎶 Sound effect setup
+    const openSound = new Audio("open.mp3"); // <-- Replace with your sound file name
+    openSound.volume = 0.7; // Adjust volume (0.0 - 1.0)
 
-  mailContainer.addEventListener("click", () => {
-    // Play sound every time the envelope is clicked
-    openSound.currentTime = 0;
-    openSound.play();
+    mailContainer.addEventListener("click", () => {
+      const isOpening = !envelope.classList.contains("mail-open"); // check if opening
 
-    envelope.classList.toggle("mail-open");
+      envelope.classList.toggle("mail-open");
 
-    // When opened, release sparkles
-    if (envelope.classList.contains("mail-open")) {
-      for (let i = 0; i < 25; i++) {
-        const sparkle = document.createElement("span");
-        sparkle.classList.add("sparkle");
+      // Play sound only when opening
+      if (isOpening) {
+        openSound.currentTime = 0;
+        openSound.play();
 
-        // random sparkle emoji
-        const emojis = ["✨", "💫", "🌸", "🌷", "⭐", "💖"];
-        sparkle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        // Release sparkles only when opening
+        for (let i = 0; i < 25; i++) {
+          const sparkle = document.createElement("span");
+          sparkle.classList.add("sparkle");
 
-        // random start position
-        sparkle.style.left = Math.random() * 100 + "%";
-        sparkle.style.top = "0";
-        sparkle.style.animationDelay = `${Math.random() * 0.5}s`;
+          const emojis = ["✨", "💫", "🌸", "🌷", "⭐", "💖"];
+          sparkle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
 
-        sparkleContainer.appendChild(sparkle);
+          sparkle.style.left = Math.random() * 100 + "%";
+          sparkle.style.top = "0";
+          sparkle.style.animationDelay = `${Math.random() * 0.5}s`;
 
-        // remove after animation
-        setTimeout(() => sparkle.remove(), 2000);
+          sparkleContainer.appendChild(sparkle);
+          setTimeout(() => sparkle.remove(), 2000);
+        }
       }
-    }
-  });
-</script>
+    });
 
-
-
-
+  </script>
 
 </body>
 
