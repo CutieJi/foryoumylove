@@ -6,10 +6,576 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>For My Love</title>
   <link rel="shortcut icon" href="logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="./assets/css/styles.css">
+
   <link
     href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;500;600&display=swap"
     rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #ffd1dc, #ffb7c5);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+      color: #8a1c4a;
+    }
+
+    /* Password Modal */
+    .password-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 182, 193, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      transition: opacity 0.5s ease;
+      padding: 20px;
+    }
+
+    .password-content {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      animation: bounceIn 1s forwards;
+    }
+
+    .password-content h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #d81b60;
+    }
+
+    .password-input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ffb7c5;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .password-input:focus {
+      border-color: #d81b60;
+    }
+
+    .submit-btn {
+      background: #d81b60;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s, transform 0.2s;
+      width: 100%;
+      max-width: 200px;
+    }
+
+    .submit-btn:hover {
+      background: #b71550;
+      transform: scale(1.05);
+    }
+
+    /* Welcome Screen */
+    .welcome-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #ffd1dc, #ffb7c5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99;
+      transition: opacity 0.8s ease;
+      padding: 10px;
+    }
+
+    .welcome-message {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      color: #d81b60;
+      text-align: center;
+      animation: pulse 2s infinite, float 3s ease-in-out infinite;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Main Content */
+    .container {
+      width: 100%;
+      max-width: 900px;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .tab {
+      background: rgba(255, 255, 255, 0.7);
+      border: none;
+      padding: 12px 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #d81b60;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1 1 auto;
+      justify-content: center;
+    }
+
+    .tab:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-3px);
+    }
+
+    .tab.active {
+      background: white;
+      color: #d81b60;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .content-area {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      min-height: 350px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Love Letter Tab */
+    .letter {
+      padding: 20px;
+      background: #fff5f7;
+      border-radius: 15px;
+      border: 2px dashed #ffb7c5;
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .letter-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .letter h3 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 28px;
+      color: #d81b60;
+    }
+
+    .letter-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    .letter.expanded .letter-content {
+      max-height: 500px;
+    }
+
+    .comment-box {
+      margin-top: 10px;
+      display: flex;
+      gap: 5px;
+    }
+
+    .comment-box input {
+      flex: 1;
+      padding: 8px;
+      border: 2px solid #ffb7c5;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .comment-box button {
+      padding: 8px 12px;
+      border: none;
+      background: #d81b60;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .comment-list {
+      margin-top: 10px;
+      padding-left: 10px;
+    }
+
+    .comment-list p {
+      background: #fce4ec;
+      padding: 6px 10px;
+      border-radius: 8px;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+
+    /* Music Tab */
+    .song {
+      background: #f8e8ee;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      cursor: pointer;
+    }
+
+    .song-info h4 {
+      font-size: 1rem;
+      margin-bottom: 3px;
+    }
+
+    .song-info p {
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    /* Notes Tab */
+    .note {
+      background: #fce4ec;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      border-left: 4px solid #d81b60;
+      font-size: 0.95rem;
+    }
+
+    /* Gallery Tab */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .gallery-item {
+      border-radius: 10px;
+      overflow: hidden;
+      height: 200px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Decorative Elements */
+    .heart,
+    .teddy-bear {
+      position: absolute;
+      z-index: -1;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    .heart {
+      color: #d81b60;
+      font-size: 24px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .teddy-bear {
+      font-size: 32px;
+      animation: float 8s ease-in-out infinite;
+    }
+
+
+    /* Envelope Section */
+    .mail-container {
+      position: relative;
+      width: 95%;
+      max-width: 750px;
+      height: 420px;
+      perspective: 1000px;
+      margin: 80px auto;
+      cursor: pointer;
+      margin-top: 5px; /* 🔼 itinaas ang envelope */
+    }
+
+    .envelope {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #fdd1dc;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 1s ease;
+    }
+
+    .envelope-body {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #ffdbe6, #ffc0cb);
+      border-radius: 0 0 16px 16px;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 60%;
+      background: linear-gradient(180deg, #ffb7c5, #ff99b9);
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+      transform-origin: top;
+      transition: transform 1s ease-in-out;
+      z-index: 2;
+    }
+
+    .letter-paper {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      width: 92%;
+      height: 85%;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      overflow-y: auto;
+      transition: transform 1s ease-in-out, opacity 0.6s ease;
+      opacity: 0;
+      font-family: 'Montserrat', sans-serif;
+      color: #8a1c4a;
+      text-align: justify;
+    }
+
+    .letter-inner h3 {
+      font-family: 'Dancing Script', cursive;
+      color: #d81b60;
+      font-size: 2rem;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    /* Opening Animation */
+    .mail-open .envelope-flap {
+      transform: rotateX(-180deg);
+    }
+
+    .mail-open .letter-paper {
+      transform: translateX(-50%) translateY(-8%);
+      opacity: 1;
+    }
+
+    /* ✨ Sparkle and Glow */
+    .sparkle-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 5;
+    }
+
+    .sparkle {
+      position: absolute;
+      font-size: 22px;
+      opacity: 0;
+      animation: sparkleFall 1.5s ease-out forwards;
+    }
+
+    @keyframes sparkleFall {
+      0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(200px) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .mail-open .envelope {
+      box-shadow: 0 0 35px rgba(255, 192, 203, 0.8),
+        0 0 70px rgba(255, 105, 180, 0.5);
+      transition: box-shadow 1s ease;
+    }
+
+    .envelope-instruction {
+      text-align: center;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.6rem;
+      color: #d81b60;
+      margin-top: 10px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Animations */
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      60% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+
+      .content-area {
+        padding: 15px;
+      }
+
+      .letter h3 {
+        font-size: 1.25rem;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tabs {
+        flex-direction: column;
+      }
+
+      .tab {
+        font-size: 0.85rem;
+        padding: 10px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .welcome-message {
+        font-size: 1.6rem;
+      }
+
+      .submit-btn {
+        font-size: 0.9rem;
+        padding: 10px;
+      }
+    }
+  </style>
 
 </head>
 
@@ -46,36 +612,60 @@
     </div>
 
     <div class="content-area">
-      <!-- Love Letter Tab -->
       <div class="tab-content active" id="love-letter">
+<<<<<<< HEAD
         <h2>Angelica'</h2>
+        <!-- Envelope -->
+        <div class="mail-container" id="mailContainer">
+          <div class="envelope" id="envelope">
+            <div class="envelope-flap"></div>
+            <div class="envelope-body">
+              <div class="letter-paper" id="letterPaper">
+                <div class="letter-inner">
+                  <h3>My Crush,</h3>
+                  <p>
+                    <strong>Hello Angelica,</strong>
+                    Sorry for using your photo and birthday without permission ha.
+                    I just want to make something special for you. I hope you like it. <br><br>
+                    I know we haven't known each other for a long time, but I feel like I've known you forever.
+                    Your smile lights up my day, and your laughter is music to my ears.
+                    Every moment we spend together is a treasure I hold close to my heart.<br><br>
+                    I admire your kindness, your strength, and your beautiful soul.
+                    You inspire me to be a better person every day.
+                    I am grateful for your presence in my life.<br><br>
+                    I want you to know that I am here for you, through thick and thin.
+                    I will support you, encourage you, and stand by your side no matter what.
+                    You are not alone, and I will always be your biggest cheerleader.<br><br>
+                    Forever yours,<br>
+                    <strong>Rosh</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+=======
+        <h2>My Crush'</h2>
         <div class="letter" id="loveLetter">
           <div class="letter-header">
             <h3>A Letter For You</h3>
             <span>👇 Click to open</span>
           </div>
           <div class="letter-content">
-            <p>My crush,<br><br>
-              Hello angelica, sorry for using your photo and birthday wihtout permission ha. I just want to make
-              something special for you. I hope you like it. <br><br>
-              I know we haven't known each other for a long time, but I feel like I've known you forever. Your smile
-              lights up my day, and your laughter is music to my ears. Every moment we spend together is a treasure I
-              hold close to my heart.<br><br>
-              I admire your kindness, your strength, and your beautiful soul. You inspire me to be a better person every
-              day. I am grateful for your presence in my life, and I cherish every memory we create together.<br><br>
-              I want you to know that I am here for you, through thick and thin. I will support you, encourage you, and
-              stand by your side no matter what. You are not alone, and I will always be your biggest
-              cheerleader.<br><br>
-              I look forward to the future with you, to all the adventures we will embark on and the dreams we will
-              chase together. You are my crush, my confidant, and my best friend. I am so lucky if I have you in my
-              life.<br><br>
+            <p><strong>Hello Angelica,</strong><br><br>
+              Sorry for using your photo and birthday without permission ha. gusto ko lang talaga
+              gumawa ng something special for you, and I hope you like it. Even though we haven’t
+              known each other for very long. Nakakagaan ka ng araw, lalo na kapag ngumingiti ka,
+              and ang bait mo pa. I admire your kindness, strength, and beautiful soul, you truly
+              inspire me to be better.<br><br>
+              Hindi lang kita crush, but someone I deeply respect and care for. If I ever get
+              the chance to be a part of your life in a real way, I’d consider myself incredibly lucky.<br><br>
               Forever yours,<br>
-              Rosh</p>
+              <strong>Rosh</strong></p>
+>>>>>>> d2a16a076e1193a55063eb8a2d4dd1b4c679fa9e
           </div>
+          <div class="sparkle-container" id="sparkleContainer"></div>
+          <p class="envelope-instruction">💌 Click the envelope to open 💫</p>
         </div>
       </div>
-
-
 
       <!-- Music Tab -->
       <div class="tab-content" id="music">
@@ -178,11 +768,31 @@
   </div>
 
   <!-- Decorative elements -->
-  <div class="heart" style="top: 10%; left: 5%;">❤️</div>
-  <div class="heart" style="top: 20%; right: 10%;">❤️</div>
-  <div class="heart" style="bottom: 15%; left: 15%;">❤️</div>
-  <div class="teddy-bear" style="top: 30%; left: 10%;">🧸</div>
-  <div class="teddy-bear" style="bottom: 10%; right: 5%;">🧸</div>
+  <!-- 💖 TOP LEFT SIDE -->
+  <div class="heart" style="top:10%; left:5%; --i:1;">❤️</div>
+  <div class="heart" style="top:18%; left:12%; --i:2;">💖</div>
+  <div class="teddy-bear" style="top:22%; left:8%; --i:3;">🧸</div>
+  <div class="heart" style="top:28%; left:15%; --i:4;">💞</div>
+
+  <!-- 💖 TOP RIGHT SIDE -->
+  <div class="heart" style="top:12%; right:5%; --i:5;">💘</div>
+  <div class="heart" style="top:20%; right:10%; --i:6;">💓</div>
+  <div class="teddy-bear" style="top:25%; right:8%; --i:7;">🧸</div>
+  <div class="heart" style="top:30%; right:15%; --i:8;">💗</div>
+
+  <!-- 💖 BOTTOM LEFT SIDE -->
+  <div class="heart" style="bottom:12%; left:8%; --i:9;">💞</div>
+  <div class="heart" style="bottom:18%; left:12%; --i:10;">❤️</div>
+  <div class="teddy-bear" style="bottom:10%; left:5%; --i:11;">🧸</div>
+  <div class="heart" style="bottom:25%; left:15%; --i:12;">💓</div>
+
+  <!-- 💖 BOTTOM RIGHT SIDE -->
+  <div class="heart" style="bottom:12%; right:8%; --i:13;">💖</div>
+  <div class="heart" style="bottom:20%; right:12%; --i:14;">💗</div>
+  <div class="teddy-bear" style="bottom:15%; right:5%; --i:15;">🧸</div>
+  <div class="heart" style="bottom:25%; right:15%; --i:16;">💘</div>
+
+
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
@@ -276,6 +886,49 @@
     });
   </script>
   <script src="./assets/js/script.js"></script>
+  <script>
+  const mailContainer = document.getElementById("mailContainer");
+  const envelope = document.getElementById("envelope");
+  const sparkleContainer = document.getElementById("sparkleContainer");
+
+  // 🎶 Sound effect setup
+  const openSound = new Audio("open.mp3"); // <-- Replace with your sound file name
+  openSound.volume = 0.7; // Adjust volume (0.0 - 1.0)
+
+  mailContainer.addEventListener("click", () => {
+    // Play sound every time the envelope is clicked
+    openSound.currentTime = 0;
+    openSound.play();
+
+    envelope.classList.toggle("mail-open");
+
+    // When opened, release sparkles
+    if (envelope.classList.contains("mail-open")) {
+      for (let i = 0; i < 25; i++) {
+        const sparkle = document.createElement("span");
+        sparkle.classList.add("sparkle");
+
+        // random sparkle emoji
+        const emojis = ["✨", "💫", "🌸", "🌷", "⭐", "💖"];
+        sparkle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+        // random start position
+        sparkle.style.left = Math.random() * 100 + "%";
+        sparkle.style.top = "0";
+        sparkle.style.animationDelay = `${Math.random() * 0.5}s`;
+
+        sparkleContainer.appendChild(sparkle);
+
+        // remove after animation
+        setTimeout(() => sparkle.remove(), 2000);
+      }
+    }
+  });
+</script>
+
+
+
+
 
 </body>
 
