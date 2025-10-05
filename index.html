@@ -824,7 +824,10 @@
     const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
     onSnapshot(q, (snapshot) => {
       commentList.innerHTML = "";
-      snapshot.forEach(docSnap => {
+      const commentsArray = snapshot.docs; // get all comments as array
+      const oldestCommentId = commentsArray[commentsArray.length - 1]?.id; // last = oldest
+
+      commentsArray.forEach((docSnap) => {
         const data = docSnap.data();
 
         const div = document.createElement('div');
@@ -845,26 +848,31 @@
         desc.style.fontSize = "0.8rem";
         desc.style.marginLeft = "5px";
 
-        // Delete button
-        const delBtn = document.createElement('button');
-        delBtn.textContent = "❌";
-        delBtn.style.alignSelf = "flex-end";
-        delBtn.style.border = "none";
-        delBtn.style.background = "transparent";
-        delBtn.style.cursor = "pointer";
-        delBtn.style.fontSize = "14px";
-        delBtn.style.marginTop = "2px";
-
-        delBtn.addEventListener('click', async () => {
-          await deleteDoc(doc(db, "comments", docSnap.id));
-        });
-
         div.appendChild(p);
         div.appendChild(desc);
-        div.appendChild(delBtn);
+
+        // Only add delete button if it's NOT the oldest comment
+        if (docSnap.id !== oldestCommentId) {
+          const delBtn = document.createElement('button');
+          delBtn.textContent = "❌";
+          delBtn.style.alignSelf = "flex-end";
+          delBtn.style.border = "none";
+          delBtn.style.background = "transparent";
+          delBtn.style.cursor = "pointer";
+          delBtn.style.fontSize = "14px";
+          delBtn.style.marginTop = "2px";
+
+          delBtn.addEventListener('click', async () => {
+            await deleteDoc(doc(db, "comments", docSnap.id));
+          });
+
+          div.appendChild(delBtn);
+        }
+
         commentList.appendChild(div);
       });
     });
+
   </script>
   <script src="./assets/js/script.js"></script>
   <script>
