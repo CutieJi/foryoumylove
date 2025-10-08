@@ -448,6 +448,150 @@
       }
     }
 
+    /* 💬 Comment Items */
+    .comment-item {
+      background: #fce4ec;
+      padding: 8px 10px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+    }
+
+    /* Message text */
+    .comment-item p {
+      margin: 0;
+      color: #8a1c4a;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    /* “From” name - made smaller */
+    .comment-item small {
+      font-size: 0.75rem;
+      color: #b71550;
+      margin-top: 4px;
+      align-self: flex-end;
+      opacity: 0.8;
+      word-break: break-word;
+    }
+
+    .comment-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    /* 💬 Comment form container */
+    .comment-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Message input */
+    #commentInput {
+      flex: 1 1 180px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #f5b7c2;
+      background-color: #fff0f5;
+      color: #8a1c4a;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+
+    /* Shorter "From" input */
+    #fromInput {
+      flex: 0 0 100px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #f5b7c2;
+      background-color: #fff0f5;
+      color: #b71550;
+      font-size: 0.85rem;
+      box-sizing: border-box;
+    }
+
+    /* Send button */
+    #sendButton {
+      padding: 8px 14px;
+      background-color: #ff7fa8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      flex: 0 0 auto;
+    }
+
+    #sendButton:hover {
+      background-color: #ff5f90;
+    }
+
+    /* 📱 MOBILE FIX */
+    @media (max-width: 600px) {
+      .comment-form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      #commentInput,
+      #fromInput,
+      #sendButton {
+        width: 100%;
+        flex: 1 1 auto;
+      }
+
+      #sendButton {
+        margin-top: 6px;
+      }
+    }
+
+
+    /* Make the "From" input shorter */
+    #fromInput {
+      width: 120px;
+      /* or adjust to 100px if you want it smaller */
+      padding: 6px 8px;
+      font-size: 0.85rem;
+      border-radius: 8px;
+      border: 1px solid #f5b7c2;
+      background-color: #fff0f5;
+      color: #b71550;
+    }
+
+
+    /* Timestamp text */
+    .comment-item .time {
+      font-size: 0.7rem;
+      color: #a86a7c;
+      margin-top: 3px;
+      text-align: right;
+      opacity: 0.7;
+      word-break: break-word;
+    }
+
+    /* Delete button spacing fix */
+    .comment-item button {
+      align-self: flex-end;
+      margin-bottom: 4px;
+    }
+
+
     .mail-open .envelope {
       box-shadow: 0 0 35px rgba(255, 192, 203, 0.8),
         0 0 70px rgba(255, 105, 180, 0.5);
@@ -575,6 +719,8 @@
         font-size: 0.9rem;
         padding: 10px;
       }
+
+
     }
   </style>
 
@@ -711,7 +857,8 @@
 
       <!-- Optional: comment box -->
       <div class="comment-box">
-        <input type="text" id="commentInput" placeholder="Leave a comment...">
+        <input type="text" id="commentInput" placeholder="Leave a message...">
+        <input type="text" id="fromInput" placeholder="From...">
         <button id="commentBtn">Send</button>
       </div>
       <div class="comment-list" id="commentList"></div>
@@ -817,13 +964,18 @@
 
     // Save comment
     commentBtn.addEventListener('click', async () => {
-      if (commentInput.value.trim() !== "") {
+      const message = commentInput.value.trim();
+      const from = document.getElementById('fromInput').value.trim();
+
+      if (message !== "" && from !== "") {
         await addDoc(collection(db, "comments"), {
-          text: commentInput.value.trim(),
+          text: message,
+          from: from,
           desc: new Date().toLocaleString(),
           timestamp: serverTimestamp()
         });
         commentInput.value = "";
+        document.getElementById('fromInput').value = "";
       }
     });
 
@@ -831,34 +983,25 @@
     const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
     onSnapshot(q, (snapshot) => {
       commentList.innerHTML = "";
-      const commentsArray = snapshot.docs; // get all comments as array
-      const oldestCommentId = commentsArray[commentsArray.length - 1]?.id; // last = oldest
+      const commentsArray = snapshot.docs;
+      const oldestCommentId = commentsArray[commentsArray.length - 1]?.id;
 
       commentsArray.forEach((docSnap) => {
         const data = docSnap.data();
 
         const div = document.createElement('div');
-        div.style.display = "flex";
-        div.style.flexDirection = "column";
-        div.style.marginBottom = "8px";
+        div.classList.add('comment-item');
 
         const p = document.createElement('p');
         p.textContent = data.text;
-        p.style.background = "#fce4ec";
-        p.style.padding = "6px 10px";
-        p.style.borderRadius = "8px";
-        p.style.margin = "0 0 3px 0";
 
-        const desc = document.createElement('small');
+        const from = document.createElement('small');
+        from.textContent = data.from ? `— ${data.from}` : "";
+
+        const desc = document.createElement('div');
         desc.textContent = data.desc || "No timestamp";
-        desc.style.color = "#888";
-        desc.style.fontSize = "0.8rem";
-        desc.style.marginLeft = "5px";
+        desc.classList.add('time');
 
-        div.appendChild(p);
-        div.appendChild(desc);
-
-        // Only add delete button if it's NOT the oldest comment
         if (docSnap.id !== oldestCommentId) {
           const delBtn = document.createElement('button');
           delBtn.textContent = "❌";
@@ -876,9 +1019,13 @@
           div.appendChild(delBtn);
         }
 
+        div.appendChild(p);
+        div.appendChild(from);
+        div.appendChild(desc);
         commentList.appendChild(div);
       });
     });
+
 
   </script>
   <script src="./assets/js/script.js"></script>
