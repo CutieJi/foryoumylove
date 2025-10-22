@@ -18,6 +18,27 @@ document.addEventListener('DOMContentLoaded', function () {
                     setTimeout(() => {
                         welcomeScreen.style.display = 'none';
                         mainContent.style.display = 'block';
+
+                        // ✅ Auto-play first song after successful login
+                        const firstSong = document.querySelector('.song');
+                        if (firstSong) {
+                            const audioSrc = firstSong.getAttribute('data-audio');
+                            const icon = firstSong.querySelector('.song-icon');
+                            const autoAudio = new Audio(audioSrc);
+                            autoAudio.play();
+                            icon.textContent = "⏸️";
+
+                            // Set it as the current playing song
+                            currentAudio = autoAudio;
+                            currentIcon = icon;
+
+                            // Auto-replay when finished
+                            autoAudio.onended = () => {
+                                autoAudio.currentTime = 0;
+                                autoAudio.play();
+                            };
+                        }
+
                     }, 800);
                 }, 2500);
             }, 500);
@@ -31,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 1500);
         }
     });
+
 
     // Allow Enter key to submit password
     passwordInput.addEventListener('keypress', function (e) {
@@ -135,3 +157,4 @@ songElements.forEach(song => {
         }
     });
 });
+
