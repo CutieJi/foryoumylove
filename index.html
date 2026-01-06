@@ -29,7 +29,6 @@
       color: #8a1c4a;
     }
 
-    /* Password Modal */
     .password-modal {
       position: fixed;
       inset: 0;
@@ -94,7 +93,6 @@
       transform: scale(1.05);
     }
 
-    /* Welcome Screen */
     .welcome-screen {
       position: fixed;
       inset: 0;
@@ -116,7 +114,6 @@
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    /* Main Content */
     .container {
       width: 100%;
       max-width: 900px;
@@ -179,7 +176,6 @@
       display: block;
     }
 
-    /* Love Letter Tab */
     .letter {
       padding: 20px;
       background: #fff5f7;
@@ -249,7 +245,6 @@
       font-size: 0.9rem;
     }
 
-    /* Music Tab */
     .song {
       background: #f8e8ee;
       padding: 12px;
@@ -272,7 +267,6 @@
       font-size: 0.9rem;
     }
 
-    /* Notes Tab */
     .note {
       background: #fce4ec;
       padding: 12px;
@@ -282,7 +276,6 @@
       font-size: 0.95rem;
     }
 
-    /* Gallery Tab */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -307,7 +300,6 @@
       object-fit: cover;
     }
 
-    /* Decorative Elements */
     .heart,
     .teddy-bear {
       position: absolute;
@@ -328,7 +320,6 @@
     }
 
 
-    /* Envelope Section */
     .mail-container {
       position: relative;
       width: 95%;
@@ -403,7 +394,6 @@
       text-align: center;
     }
 
-    /* Opening Animation */
     .mail-open .envelope-flap {
       transform: rotateX(-180deg);
     }
@@ -413,7 +403,6 @@
       opacity: 1;
     }
 
-    /* ✨ Sparkle and Glow */
     .sparkle-container {
       position: absolute;
       top: 0;
@@ -448,7 +437,6 @@
       }
     }
 
-    /* 💬 Comment Items */
     .comment-item {
       background: #fce4ec;
       padding: 8px 10px;
@@ -462,7 +450,6 @@
       max-width: 100%;
     }
 
-    /* Message text */
     .comment-item p {
       margin: 0;
       color: #8a1c4a;
@@ -470,7 +457,6 @@
       word-break: break-word;
     }
 
-    /* “From” name - made smaller */
     .comment-item small {
       font-size: 0.75rem;
       color: #b71550;
@@ -489,7 +475,6 @@
       margin-top: 10px;
     }
 
-    /* 💬 Comment form container */
     .comment-form {
       display: flex;
       flex-wrap: wrap;
@@ -501,7 +486,6 @@
       box-sizing: border-box;
     }
 
-    /* Message input */
     #commentInput {
       flex: 1 1 180px;
       padding: 8px 10px;
@@ -513,7 +497,6 @@
       box-sizing: border-box;
     }
 
-    /* Shorter "From" input */
     #fromInput {
       flex: 0 0 100px;
       padding: 8px 10px;
@@ -525,7 +508,6 @@
       box-sizing: border-box;
     }
 
-    /* Send button */
     #sendButton {
       padding: 8px 14px;
       background-color: #ff7fa8;
@@ -542,7 +524,6 @@
       background-color: #ff5f90;
     }
 
-    /* 📱 MOBILE FIX */
     @media (max-width: 600px) {
       .comment-form {
         flex-direction: column;
@@ -561,11 +542,8 @@
       }
     }
 
-
-    /* Make the "From" input shorter */
     #fromInput {
       width: 120px;
-      /* or adjust to 100px if you want it smaller */
       padding: 6px 8px;
       font-size: 0.85rem;
       border-radius: 8px;
@@ -574,8 +552,6 @@
       color: #b71550;
     }
 
-
-    /* Timestamp text */
     .comment-item .time {
       font-size: 0.7rem;
       color: #a86a7c;
@@ -585,7 +561,6 @@
       word-break: break-word;
     }
 
-    /* Delete button spacing fix */
     .comment-item button {
       align-self: flex-end;
       margin-bottom: 4px;
@@ -621,7 +596,6 @@
       }
     }
 
-    /* Animations */
     @keyframes bounceIn {
       0% {
         transform: scale(0.8);
@@ -678,7 +652,6 @@
       }
     }
 
-    /* Responsive Adjustments */
     @media (max-width: 768px) {
       .container {
         padding: 15px;
@@ -727,7 +700,6 @@
 </head>
 
 <body>
-  <!-- Password Modal -->
   <div class="password-modal" id="passwordModal">
     <div class="password-content">
       <h2>Enter the secret code</h2>
@@ -736,12 +708,10 @@
     </div>
   </div>
 
-  <!-- Welcome Screen -->
   <div class="welcome-screen" id="welcomeScreen">
     <h1 class="welcome-message">Welcome my crush, enjoy my confession for you</h1>
   </div>
 
-  <!-- Main Content -->
   <div class="container" id="mainContent" style="display: none;">
     <div class="tabs">
       <button class="tab active" data-tab="love-letter">
@@ -761,7 +731,6 @@
     <div class="content-area">
       <div class="tab-content active" id="love-letter">
         <h2>Angelica'</h2>
-        <!-- Envelope -->
         <div class="mail-container" id="mailContainer">
           <div class="envelope" id="envelope">
             <div class="envelope-flap"></div>
@@ -800,7 +769,6 @@
         </div>
       </div>
 
-      <!-- Music Tab -->
       <div class="tab-content" id="music">
         <h2>Songs that remind me of you</h2>
         <div class="song" data-audio="djpo.mp3">
@@ -840,7 +808,6 @@
         </div>
       </div>
 
-      <!-- Notes Tab -->
       <div class="tab-content" id="notes">
         <h2>Some reminders</h2>
         <div class="note">
@@ -863,15 +830,6 @@
         </div>
       </div>
 
-      <!-- Optional: comment box -->
-      <div class="comment-box">
-        <input type="text" id="commentInput" placeholder="Leave a message...">
-        <input type="text" id="fromInput" placeholder="From...">
-        <button id="commentBtn">Send</button>
-      </div>
-      <div class="comment-list" id="commentList"></div>
-
-      <!-- Gallery Tab -->
       <div class="tab-content" id="gallery">
         <h2>Flowers for you</h2>
         <div class="gallery">
@@ -907,41 +865,37 @@
           </div>
         </div>
       </div>
+
+      <div class="comment-box">
+        <input type="text" id="commentInput" placeholder="Leave a message...">
+        <input type="text" id="fromInput" placeholder="From...">
+        <button id="commentBtn">Send</button>
+      </div>
+      <div class="comment-list" id="commentList"></div>
+      
     </div>
   </div>
 
-  <!-- Decorative elements -->
-  <!-- 💖 TOP LEFT SIDE -->
   <div class="heart" style="top:10%; left:5%; --i:1;">❤️</div>
   <div class="heart" style="top:18%; left:12%; --i:2;">💖</div>
   <div class="teddy-bear" style="top:22%; left:8%; --i:3;">🧸</div>
   <div class="heart" style="top:28%; left:15%; --i:4;">💞</div>
-
-  <!-- 💖 TOP RIGHT SIDE -->
   <div class="heart" style="top:12%; right:5%; --i:5;">💘</div>
   <div class="heart" style="top:20%; right:10%; --i:6;">💓</div>
   <div class="teddy-bear" style="top:25%; right:8%; --i:7;">🧸</div>
   <div class="heart" style="top:30%; right:15%; --i:8;">💗</div>
-
-  <!-- 💖 BOTTOM LEFT SIDE -->
   <div class="heart" style="bottom:12%; left:8%; --i:9;">💞</div>
   <div class="heart" style="bottom:18%; left:12%; --i:10;">❤️</div>
   <div class="teddy-bear" style="bottom:10%; left:5%; --i:11;">🧸</div>
   <div class="heart" style="bottom:25%; left:15%; --i:12;">💓</div>
-
-  <!-- 💖 BOTTOM RIGHT SIDE -->
   <div class="heart" style="bottom:12%; right:8%; --i:13;">💖</div>
   <div class="heart" style="bottom:20%; right:12%; --i:14;">💗</div>
   <div class="teddy-bear" style="bottom:15%; right:5%; --i:15;">🧸</div>
   <div class="heart" style="bottom:25%; right:15%; --i:16;">💘</div>
 
-
-
-  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
   <script type="module">
-    // Firebase imports
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
     import {
@@ -949,7 +903,7 @@
       query, orderBy, serverTimestamp, deleteDoc, doc
     } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
-    // Firebase config
+
     const firebaseConfig = {
       apiKey: "AIzaSyDgfwPyiJWemClcF411-skY-BBq3fB0xMU",
       authDomain: "formylove-113e8.firebaseapp.com",
