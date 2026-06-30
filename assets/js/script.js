@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitPassword = document.getElementById('submitPassword');
 
     submitPassword.addEventListener('click', function () {
-        if (passwordInput.value.toLowerCase() === 'december28') {
+        if (passwordInput.value.toLowerCase() === '111906') {
             passwordModal.style.opacity = '0';
             setTimeout(() => {
                 passwordModal.style.display = 'none';
@@ -44,11 +44,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 500);
         } else {
             passwordInput.value = '';
-            passwordInput.placeholder = 'Try again, my crush...';
+            passwordInput.placeholder = 'Try again, baba...';
             passwordInput.style.borderColor = '#ff4d4d';
             setTimeout(() => {
                 passwordInput.style.borderColor = '#ffb7c5';
-                passwordInput.placeholder = 'Ulit, your birthday po...';
+                passwordInput.placeholder = 'Ulit baba, your birthday po...';
             }, 1500);
         }
     });
